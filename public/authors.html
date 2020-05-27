@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Authors</title>
+</head>
+
+<body>
+
+    <!-- Status messages -->
+    <div class="container alert-container" style="position: relative; padding-top: 20px;">
+        <div class="alert alert-success alert-dismissible fade show"
+            style="position: absolute; width: 97%; display: none;" id="successAlert"></div>
+        <div class="alert alert-danger alert-dismissible fade show"
+            style="position: absolute; width: 97%; display: none;" id="failureAlert"></div>
+    </div>
+
+    <div class="container" style="padding-top: 70px;">
+        <table class="table" id="authorsTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Broj dijela</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+            data-target="#addAuthorsModal">Dodaj
+            autora</button>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="editAuthorsModal" style="margin-top: 100px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Uredi autora</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form onsubmit="editAuthors(event, this)">
+                        <input type="hidden" name="authorsIDOfEditedAuthors" id="authorsIDOfEditedAuthors">
+                        <div class="form-group">
+                            <label for="ime">Ime:</label>
+                            <input type="text" class="form-control" placeholder="Unesite ime" name="editedAuthorsName"
+                                id="editedAuthorsName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prezime">Prezime:</label>
+                            <input type="text" class="form-control" placeholder="Unesite prezime" name="editedAuthorsLastName"
+                                id="editedAuthorsLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="broj_dijela">Broj dijela:</label>
+                            <input type="text" class="form-control" placeholder="Unesite broj dijela"
+                                name="editedAuthorsPartNumber" id="editedAuthorsPartNumber" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Uredi</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="addAuthorsModal" style="margin-top: 100px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Dodaj autora</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form onsubmit="addAuthors(event, this)">
+                        <div class="form-group">
+                            <label for="ime">Ime:</label>
+                            <input type="text" class="form-control" placeholder="Unesite prezime" name="addedAuthorsName"
+                                id="addedAuthorsName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prezimeime">Prezime:</label>
+                            <input type="text" class="form-control" placeholder="Unesite prezime" name="addedAuthorsLastName"
+                                id="addedAuthorsLastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="broj_dijela">Broj dijela:</label>
+                            <input type="text" class="form-control" placeholder="Unesite broj dijela"
+                                name="addedAuthorsPartNumber" id="addedAuthorsPartNumber" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Dodaj</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="script/util.js"></script>
+        <script src="script/authors.js"></script>
+</body>
+
+</html>

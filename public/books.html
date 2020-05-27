@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Books</title>
+</head>
+
+<body>
+
+    <!-- Status messages -->
+    <div class="container alert-container" style="position: relative; padding-top: 20px;">
+        <div class="alert alert-success alert-dismissible fade show" style="position: absolute; width: 97%; display: none;" id="successAlert"></div>
+        <div class="alert alert-danger alert-dismissible fade show" style="position: absolute; width: 97%; display: none;" id="failureAlert"></div>
+    </div>
+
+    <div class="container" style="padding-top: 70px;">
+        <select id="authorsForBooksFilter" class="form-control form-control-lg"
+            style="width: 30%;margin-bottom: 10px;"
+            onchange="updateBooksTable(this.options[this.selectedIndex].text);">
+            <option value="" disabled selected>Odaberite autora</option>
+        </select>
+        <table class="table" id="booksTable">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Naziv</th>
+                    <th>Datum objave</th>
+                    <th>Cijena</th>
+                    <th>Broj stranica</th>
+                    <th>Autor</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+        </table>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal"
+            data-target="#addBooksModal">Dodaj
+            knjigu</button>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="editBooksModal" style="margin-top: 100px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Uredi knjigu</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form onsubmit="editBooks(event, this)">
+                        <input type="hidden" name="booksIDOfEditedBooks" id="booksIDOfEditedBooks">
+                        <div class="form-group">
+                            <label for="naziv">Naziv:</label>
+                            <input type="text" class="form-control" placeholder="Unesite naziv" name="editedBooksName"
+                                id="editedBooksName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="datum_bojave">Datum objave:</label>
+                            <input type="date" class="form-control" placeholder="Unesite datum objave"
+                                name="editedBooksDate" id="editedBooksDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cijena">Cijena:</label>
+                            <input type="number" class="form-control" placeholder="Unesite cijenu"
+                                name="editedBooksPrice" id="editedBooksPrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="broj_stranica">Broj stranica:</label>
+                            <input type="number" class="form-control" placeholder="Unesite broj stranica"
+                                name="editedBooksPagesNumber" id="editedBooksPagesNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="autor">Autor:</label>
+                            <select class="custom-select mr-sm-2" name="editedBooksAuthor"
+                                id="editedBooksAuthor" required>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Uredi</button>
+                    </form>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+     <!-- Modal body -->
+     <div class="modal-body">
+        <form onsubmit="addBooks(event, this)" id="addBooksForm">
+            <div class="form-group">
+                <label for="naziv">Naziv:</label>
+                <input type="text" class="form-control" placeholder="Unesite naziv" name="addedBooksName"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="datum_objave">Datum objave:</label>
+                <input type="text" class="form-control" placeholder="Unesite datum objave"
+                    name="addedBooksDate" required>
+            </div>
+            <div class="form-group">
+                <label for="cijena">Cijena:</label>
+                <input type="number" class="form-control" placeholder="Unesite cijenu"
+                    name="addedBooksPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="broj_stranica">Broj stranica:</label>
+                <input type="number" class="form-control" name="addedBooksBirthPagesNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="autor">Autor:</label>
+                <select class="custom-select mr-sm-2" id="addedBooksAuthor"
+                    name="addedBooksAuthor" required>
+                    <option value="" disabled selected>Odaberite autora</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+    </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script/util.js"></script>
+    <script src="script/books.js"></script>
+</body>
+
+</html>
