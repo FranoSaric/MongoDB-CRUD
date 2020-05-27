@@ -19,7 +19,7 @@
     "joi-objectid": "^2.0.0",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "mongoose": "^5.3.4",
+    "mongoose": "^5.7.5",
     "winston": "^2.*"
   },
   "devDependencies": {
